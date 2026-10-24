@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Hub - Informasi & Aktivitas Mahasiswa Baru</title>
+ <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+  <!-- 1. FLOATING NAVIGATION BAR -->
+  <header>
+    <nav class="navbar-floating">
+      <div class="logo">
+        <img src="assets/images/logo-sealab.png" alt="SEA Lab Logo" class="logo-img">
+        <h2>Campus Hub</h2>
+      </div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#jadwal">Jadwal</a></li>
+        <li><a href="#lab">Lab & Organisasi</a></li>
+        <li><a href="#todo">To-Do List</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <a href="#contact" class="btn-cta-nav">Daftar Maba</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- 2. HERO / LANDING PAGE -->
+    <section id="home" class="hero-bg">
+      <div class="hero-overlay">
+        <span class="hero-tag">OVERCLOCK 2026 &bull; SEA LABORATORY</span>
+        <h1>Selamat Datang di Campus Hub</h1>
+        <p>Portal informasi terintegrasi untuk membantu mahasiswa baru mengelola aktivitas dan mengenal lingkungan kampus.</p>
+        <div class="hero-buttons">
+          <a href="#jadwal" class="btn-main">Lihat Jadwal Kegiatan</a>
+          <a href="#lab" class="btn-secondary">Profil Lab</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. JADWAL KEGIATAN -->
+    <section id="jadwal">
+      <h2>Jadwal Kegiatan Mahasiswa Baru</h2>
+      <div class="jadwal-container">
+        <div class="jadwal-card">
+          <h3>Pengenalan Kehidupan Kampus (PKKMB)</h3>
+          <p><strong>Tanggal/Waktu:</strong> 1 September 2026 | 08:00 WIB</p>
+          <p><strong>Lokasi:</strong> Auditorium Utama</p>
+          <p><strong>Keterangan:</strong> Wajib membawa kartu peserta dan memakai kemeja putih.</p>
+        </div>
+        <div class="jadwal-card">
+          <h3>Lab Open House & Expo Organisasi</h3>
+          <p><strong>Tanggal/Waktu:</strong> 3 September 2026 | 10:00 WIB</p>
+          <p><strong>Lokasi:</strong> Gedung Laboratorium Terpadu</p>
+          <p><strong>Keterangan:</strong> Pameran karya lab dan pendaftaran anggota baru.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. INFORMASI LAB / ORGANISASI -->
+    <section id="lab">
+      <h2>Profil Laboratorium & Organisasi</h2>
+      <div class="lab-container">
+        <div class="lab-card">
+          <h3>SEA Laboratory</h3>
+          <p><strong>Fokus:</strong> Software Engineering, Web Development, & Cloud Computing.</p>
+          <p>Membantu mahasiswa mendalami pengembangan perangkat lunak dan riset teknologi modern.</p>
+        </div>
+        <div class="lab-card">
+          <h3>Himpunan Mahasiswa Jurusan</h3>
+          <p><strong>Fokus:</strong> Pengembangan karakter, kepemimpinan, dan kegiatan sosial.</p>
+          <p>Wadah aspirasi dan organisasi utama bagi mahasiswa di tingkat jurusan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. TO-DO LIST -->
+    <section id="todo">
+      <h2>To-Do List Mahasiswa</h2>
+      <form id="todo-form">
+        <input type="text" id="todo-input" placeholder="Tambah tugas baru..." required>
+        <button type="submit">Tambah</button>
+      </form>
+      <ul id="todo-list">
+        <!-- Item tugas dari JavaScript / Local Storage -->
+      </ul>
+    </section>
+
+    <!-- 6. FAQ (ACCORDION) -->
+    <section id="faq">
+      <h2>Pertanyaan Yang Sering Diajukan (FAQ)</h2>
+      <div class="faq-container">
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Bagaimana cara melihat ruang perkuliahan?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Ruang perkuliahan dapat dilihat pada kartu rencana studi (KRS) atau papan pengumuman di akademik.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            <span>Apakah kehadiran PKKMB bersifat wajib?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-answer">
+            <p>Ya, PKKMB wajib diikuti sebagai salah satu syarat kelulusan dan pengurusan sertifikat mahasiswa.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. CONTACT / FEEDBACK FORM -->
+    <section id="contact">
+      <h2>Hubungi Kami / Feedback</h2>
+      <form id="contact-form">
+        <div class="form-group">
+          <label for="nama">Nama Lengkap:</label>
+          <input type="text" id="nama" required placeholder="Masukkan nama Anda">
+        </div>
+        <div class="form-group">
+          <label for="kategori">Kategori:</label>
+          <select id="kategori" required>
+            <option value="">-- Pilih Kategori --</option>
+            <option value="pertanyaan">Pertanyaan</option>
+            <option value="saran">Saran</option>
+            <option value="kendala">Kendala Teknis</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="pesan">Pesan:</label>
+          <textarea id="pesan" rows="4" required placeholder="Tuliskan pesan Anda di sini..."></textarea>
+        </div>
+        <button type="submit">Kirim Pesan</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Campus Hub - Overclock SEA Laboratory</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
