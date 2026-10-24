@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Campus Hub - Informasi & Aktivitas Mahasiswa Baru</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-[#070a12] text-slate-100 min-h-screen font-sans bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-blue-900/20 via-[#070a12] to-[#070a12]">
+
+  <!-- 1. FLOATING NAVIGATION BAR -->
+  <header class="fixed top-3 left-0 w-full z-50 px-4 md:px-10">
+    <nav class="max-w-6xl mx-auto bg-slate-900/80 backdrop-blur-md border border-cyan-500/30 rounded-2xl px-6 py-3 flex justify-between items-center shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
+     <div class="flex items-center gap-3">
+        <img src="assets/images/LOGO SEA LAB.jpeg" alt="LOGO SEA LAB.jpeg" width=50px height=30px style="border-radius: 12px;">
+        <h2 class="text-xl font-extrabold text-white">Campus Hub</h2>
+    </div>
+      
+      <ul class="hidden md:flex items-center gap-6 text-sm font-medium text-slate-400">
+        <li><a href="#home" class="hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,210,255,0.8)] transition">Home</a></li>
+        <li><a href="#jadwal" class="hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,210,255,0.8)] transition">Jadwal</a></li>
+        <li><a href="#lab" class="hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,210,255,0.8)] transition">Lab & Organisasi</a></li>
+        <li><a href="#todo" class="hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,210,255,0.8)] transition">To-Do List</a></li>
+        <li><a href="#faq" class="hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,210,255,0.8)] transition">FAQ</a></li>
+        <li><a href="#contact" class="hover:text-cyan-400 hover:drop-shadow-[0_0_8px_rgba(0,210,255,0.8)] transition">Contact</a></li>
+        
+      </ul>
+
+      <a href="#contact" class="bg-blue-600 hover:bg-cyan-400 hover:text-slate-900 text-white font-bold text-xs px-5 py-2.5 rounded-lg shadow-lg shadow-blue-500/30 hover:shadow-cyan-400/50 transition duration-300">Daftar Maba</a>
+    </nav>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6">
+    <!-- 2. HERO / LANDING PAGE -->
+    <section id="home" class="pt-40 pb-20 text-left">
+      <div class="max-w-2xl">
+        <span class="inline-block text-cyan-400 text-xs font-bold tracking-widest mb-3">OVERCLOCK 2026 &bull; SEA LABORATORY</span>
+        <h1 class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-4">Selamat Datang di Campus Hub</h1>
+        <p class="text-slate-400 text-base md:text-lg mb-8 leading-relaxed">Portal informasi untuk membantu mahasiswa baru mengelola aktivitas dan mengenal lingkungan kampus.</p>
+        <div class="flex flex-wrap gap-4">
+          <a href="#jadwal" class="bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-bold px-7 py-3 rounded-lg shadow-[0_0_20px_rgba(0,210,255,0.4)] hover:shadow-[0_0_30px_rgba(0,210,255,0.7)] transition duration-300">Lihat Jadwal Kegiatan</a>
+          <a href="#lab" class="bg-slate-800/80 hover:bg-slate-700/80 text-white font-semibold px-7 py-3 rounded-lg border border-slate-700 backdrop-blur-sm transition duration-300">Profil Lab</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. JADWAL KEGIATAN -->
+    <section id="jadwal" class="py-16 border-t border-slate-800/50 scroll-mt-24">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-white relative after:content-[''] after:block after:w-16 after:h-1 after:bg-gradient-to-r after:from-blue-600 after:to-cyan-400 after:mx-auto after:mt-2 after:rounded">Jadwal Kegiatan Mahasiswa Baru</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-slate-900/70 border border-cyan-500/20 p-6 rounded-2xl backdrop-blur-md hover:border-cyan-400 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,210,255,0.15)] transition duration-300">
+          <h3 class="text-xl font-bold text-cyan-400 mb-3">Pengenalan Kehidupan Kampus bagi Mahasiswa Baru (PKKMB)</h3>
+          <p class="text-slate-400 text-sm mb-2"><strong class="text-slate-200">Tanggal/Waktu:</strong> 1 September 2026 | 08:00 WIB</p>
+          <p class="text-slate-400 text-sm mb-2"><strong class="text-slate-200">Lokasi:</strong> Auditorium Utama</p>
+          <p class="text-slate-400 text-sm"><strong class="text-slate-200">Keterangan:</strong> Wajib membawa kartu peserta dan memakai kemeja putih.</p>
+        </div>
+
+        <div class="bg-slate-900/70 border border-cyan-500/20 p-6 rounded-2xl backdrop-blur-md hover:border-cyan-400 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,210,255,0.15)] transition duration-300">
+          <h3 class="text-xl font-bold text-cyan-400 mb-3">Lab Open House & Expo Organisasi</h3>
+          <p class="text-slate-400 text-sm mb-2"><strong class="text-slate-200">Tanggal/Waktu:</strong> 3 September 2026 | 10:00 WIB</p>
+          <p class="text-slate-400 text-sm mb-2"><strong class="text-slate-200">Lokasi:</strong> Gedung Laboratorium Terpadu</p>
+          <p class="text-slate-400 text-sm"><strong class="text-slate-200">Keterangan:</strong> Pameran karya lab dan pendaftaran anggota baru.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. INFORMASI LAB / ORGANISASI -->
+    <section id="lab" class="py-16 border-t border-slate-800/50 scroll-mt-20">  </section>
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-white relative after:content-[''] after:block after:w-16 after:h-1 after:bg-gradient-to-r after:from-blue-600 after:to-cyan-400 after:mx-auto after:mt-2 after:rounded">Profil Laboratorium & Organisasi</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-slate-900/70 border border-cyan-500/20 p-6 rounded-2xl backdrop-blur-md hover:border-cyan-400 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,210,255,0.15)] transition duration-300">
+          <h3 class="text-xl font-bold text-cyan-400 mb-3">SEA Laboratory</h3>
+          <p class="text-slate-400 text-sm mb-2"><strong class="text-slate-200">Fokus:</strong> Software Engineering, Web Development, & Cloud Computing.</p>
+          <p class="text-slate-400 text-sm">Membantu mahasiswa mendalami pengembangan perangkat lunak dan riset teknologi modern.</p>
+        </div>
+
+        <div class="bg-slate-900/70 border border-cyan-500/20 p-6 rounded-2xl backdrop-blur-md hover:border-cyan-400 hover:-translate-y-1 hover:shadow-[0_10px_30px_rgba(0,210,255,0.15)] transition duration-300">
+          <h3 class="text-xl font-bold text-cyan-400 mb-3">Himpunan Mahasiswa Jurusan</h3>
+          <p class="text-slate-400 text-sm mb-2"><strong class="text-slate-200">Fokus:</strong> Pengembangan karakter, kepemimpinan, dan kegiatan sosial.</p>
+          <p class="text-slate-400 text-sm">Wadah aspirasi dan organisasi utama bagi mahasiswa di tingkat jurusan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. TO-DO LIST -->
+    <section id="todo" class="py-16 border-t border-slate-800/50">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-8 text-white relative after:content-[''] after:block after:w-16 after:h-1 after:bg-gradient-to-r after:from-blue-600 after:to-cyan-400 after:mx-auto after:mt-2 after:rounded">To-Do List Mahasiswa</h2>
+      
+      <form id="todo-form" class="max-w-lg mx-auto flex gap-3 mb-8">
+        <input type="text" id="todo-input" placeholder="Tambah tugas baru..." required class="flex-1 bg-slate-900/90 border border-cyan-500/30 rounded-full px-5 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition">
+        <button type="submit" class="bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-semibold text-sm px-6 py-3 rounded-full hover:shadow-[0_0_15px_rgba(0,210,255,0.5)] transition">Tambah</button>
+      </form>
+
+      <ul id="todo-list" class="max-w-lg mx-auto space-y-3">
+        <!-- Item tugas dari JavaScript -->
+      </ul>
+    </section>
+
+    <!-- 6. FAQ (ACCORDION) -->
+    <section id="faq" class="py-16 border-t border-slate-800/50">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-white relative after:content-[''] after:block after:w-16 after:h-1 after:bg-gradient-to-r after:from-blue-600 after:to-cyan-400 after:mx-auto after:mt-2 after:rounded">FAQ</h2>
+      
+      <div class="max-w-2xl mx-auto space-y-4">
+        <div class="bg-slate-900/70 border border-cyan-500/20 rounded-xl overflow-hidden">
+          <button class="faq-question w-full p-5 text-left font-semibold flex justify-between items-center text-slate-200 hover:text-cyan-400 transition">
+            <span>Bagaimana cara melihat ruang perkuliahan?</span>
+            <span class="text-cyan-400 text-xl">+</span>
+          </button>
+          <div class="faq-answer px-5 pb-5 text-slate-400 text-sm hidden">
+            Ruang perkuliahan dapat dilihat pada kartu rencana studi (KRS) atau papan pengumuman di akademik.
+          </div>
+        </div>
+
+        <div class="bg-slate-900/70 border border-cyan-500/20 rounded-xl overflow-hidden">
+          <button class="faq-question w-full p-5 text-left font-semibold flex justify-between items-center text-slate-200 hover:text-cyan-400 transition">
+            <span>Apakah kehadiran PKKMB bersifat wajib?</span>
+            <span class="text-cyan-400 text-xl">+</span>
+          </button>
+          <div class="faq-answer px-5 pb-5 text-slate-400 text-sm hidden">
+            Ya, PKKMB wajib diikuti oleh seluruh mahasiswa baru sebagai salah satu syarat kelulusan dan pengurusan sertifikat mahasiswa.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. CONTACT FORM -->
+    <section id="contact" class="py-16 border-t border-slate-800/50">
+      <h2 class="text-2xl md:text-3xl font-bold text-center mb-12 text-white relative after:content-[''] after:block after:w-16 after:h-1 after:bg-gradient-to-r after:from-blue-600 after:to-cyan-400 after:mx-auto after:mt-2 after:rounded">Hubungi Kami / Feedback</h2>
+      
+      <form id="contact-form" class="max-w-lg mx-auto bg-slate-900/70 border border-cyan-500/20 p-8 rounded-2xl backdrop-blur-md">
+        <div class="mb-5">
+          <label for="nama" class="block text-sm text-slate-400 mb-2">Nama Lengkap:</label>
+          <input type="text" id="nama" required placeholder="Masukkan nama Anda" class="w-full bg-slate-950/80 border border-cyan-500/30 rounded-lg px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400 transition">
+        </div>
+
+        <div class="mb-5">
+          <label for="kategori" class="block text-sm text-slate-400 mb-2">Kategori:</label>
+          <select id="kategori" required class="w-full bg-slate-950/80 border border-cyan-500/30 rounded-lg px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400 transition">
+            <option value="pilih kategori:">Pilih kategori:</option>
+            <option value="pertanyaan">Pertanyaan</option>
+            <option value="kritik">Kritik</option>
+            <option value="saran">Saran</option>
+            <option value="kendala">Kendala Teknis</option>
+          </select>
+        </div>
+
+        <div class="mb-6">
+          <label for="pesan" class="block text-sm text-slate-400 mb-2">Pesan:</label>
+          <textarea id="pesan" rows="4" required placeholder="Tuliskan pesan Anda di sini..." class="w-full bg-slate-950/80 border border-cyan-500/30 rounded-lg px-4 py-3 text-sm text-slate-100 focus:outline-none focus:border-cyan-400 transition"></textarea>
+        </div>
+
+        <button type="submit" class="w-full bg-gradient-to-r from-blue-600 to-cyan-400 text-white font-bold py-3.5 rounded-lg shadow-[0_0_15px_rgba(0,210,255,0.3)] hover:shadow-[0_0_25px_rgba(0,210,255,0.6)] transition duration-300">Kirim Pesan</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="text-center py-8 text-slate-500 text-sm border-t border-slate-800/80 bg-slate-950/90">
+    <p>&copy; 2026 Campus Hub - Overclock SEA Laboratory</p>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
