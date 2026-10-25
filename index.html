@@ -185,6 +185,36 @@
       .reveal { opacity: 1 !important; transform: none !important; filter: none !important; transition: none; }
       .wave, .float, .bubble, .seachan-idle, .chan-shadow, .sparkle { animation: none; }
     }
+
+    /* ===== MINI GAME ===== */
+    .game-canvas {
+      display: block; max-width: 100%; height: auto; border-radius: 16px;
+      border: 1px solid rgba(92,200,245,.35);
+      box-shadow: 0 0 30px rgba(43,179,238,.18), inset 0 0 20px rgba(0,0,0,.4);
+    }
+    .game-tab {
+      padding: .55rem 1.2rem; border-radius: 999px; font-weight: 700; font-size: .9rem;
+      background: rgba(255,255,255,.08); border: 1px solid rgba(92,200,245,.25); color: #eaf6ff;
+      transition: all .25s ease;
+    }
+    .game-tab:hover { border-color: rgba(92,200,245,.7); }
+    .game-tab.active {
+      background: linear-gradient(90deg, #1a9ad8, #5cc8f5); border-color: transparent; color: #fff;
+      box-shadow: 0 0 16px rgba(92,200,245,.45);
+    }
+    .hud-box {
+      background: rgba(3,26,51,.6); border: 1px solid rgba(92,200,245,.2);
+      border-radius: 12px; padding: .6rem .8rem; text-align: center;
+    }
+    .hud-label { font-size: .7rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(234,246,255,.6); }
+    .hud-value { font-size: 1.4rem; font-weight: 800; color: #5cc8f5; font-family: "JetBrains Mono", monospace; }
+    .pad-btn {
+      height: 2.8rem; border-radius: 12px; font-size: 1rem; color: #fff;
+      background: rgba(26,154,216,.25); border: 1px solid rgba(92,200,245,.35);
+      touch-action: manipulation; transition: transform .1s ease, background .2s ease;
+    }
+    .pad-btn:hover { background: rgba(26,154,216,.45); }
+    .pad-btn:active { transform: scale(.92); background: rgba(92,200,245,.55); }
   </style>
 </head>
 <body class="text-slate-100 min-h-screen font-sans antialiased">
@@ -205,6 +235,7 @@
         <li><a href="#jadwal" class="hover:text-sea-300 transition">Jadwal</a></li>
         <li><a href="#lab" class="hover:text-sea-300 transition">Lab & Organisasi</a></li>
         <li><a href="#todo" class="hover:text-sea-300 transition">To-Do List</a></li>
+        <li><a href="#game" class="hover:text-sea-300 transition">Game</a></li>
         <li><a href="#faq" class="hover:text-sea-300 transition">FAQ</a></li>
         <li><a href="#contact" class="hover:text-sea-300 transition">Contact</a></li>
       </ul>
@@ -379,6 +410,58 @@
       </ul>
     </section>
 
+    <!-- 5b. MINI GAME -->
+    <section id="game" class="py-20 scroll-mt-24">
+      <h2 class="reveal fade-up section-title text-2xl md:text-4xl font-extrabold text-center mb-4 text-white">Mini Game Sea-chan</h2>
+      <p class="reveal fade-up text-center text-sea-50/70 mb-10">Capek ngerjain tugas? Istirahat sebentar, main dulu yuk! 🎮</p>
+
+      <div class="reveal zoom-in card max-w-3xl mx-auto rounded-3xl p-5 md:p-8">
+        <!-- Pilihan game -->
+        <div class="flex justify-center gap-2 mb-6">
+          <button type="button" data-game="snake" class="game-tab active">🐍 Ular</button>
+          <button type="button" data-game="tetris" class="game-tab">🧱 Tetris</button>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-6 items-center md:items-start justify-center">
+          <!-- Layar game -->
+          <div class="shrink-0">
+            <canvas id="snake-canvas" width="300" height="300" class="game-canvas" aria-label="Game ular"></canvas>
+            <canvas id="tetris-canvas" width="200" height="400" class="game-canvas hidden" aria-label="Game tetris"></canvas>
+          </div>
+
+          <!-- Panel skor & kontrol -->
+          <div class="w-full max-w-xs md:w-56 flex flex-col gap-4">
+            <div class="grid grid-cols-2 gap-3">
+              <div class="hud-box"><p class="hud-label">Skor</p><p id="hud-score" class="hud-value">0</p></div>
+              <div class="hud-box"><p class="hud-label">Tertinggi</p><p id="hud-best" class="hud-value">0</p></div>
+              <div id="hud-level-box" class="hud-box hidden"><p class="hud-label">Level</p><p id="hud-level" class="hud-value">1</p></div>
+              <div id="hud-next-box" class="hud-box hidden flex flex-col items-center">
+                <p class="hud-label">Berikutnya</p>
+                <canvas id="tetris-next" width="64" height="64" class="mt-1"></canvas>
+              </div>
+            </div>
+
+            <button type="button" id="game-start" class="w-full bg-gradient-to-r from-sea-500 to-sea-300 text-white font-bold py-3 rounded-xl shadow-[0_0_18px_rgba(43,179,238,.4)] hover:shadow-[0_0_28px_rgba(92,200,245,.7)] transition">▶ Mulai</button>
+
+            <!-- Tombol arah (untuk HP) -->
+            <div class="grid grid-cols-3 gap-2 w-44 mx-auto select-none">
+              <span></span>
+              <button type="button" class="pad-btn" data-key="up" aria-label="Atas">▲</button>
+              <span></span>
+              <button type="button" class="pad-btn" data-key="left" aria-label="Kiri">◀</button>
+              <button type="button" class="pad-btn" data-key="action" aria-label="Aksi" id="pad-action">●</button>
+              <button type="button" class="pad-btn" data-key="right" aria-label="Kanan">▶</button>
+              <span></span>
+              <button type="button" class="pad-btn" data-key="down" aria-label="Bawah">▼</button>
+              <span></span>
+            </div>
+
+            <p id="game-help" class="text-xs text-sea-50/60 text-center leading-relaxed"></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- 6. FAQ -->
     <section id="faq" class="py-20 scroll-mt-24">
       <h2 class="reveal fade-up section-title text-2xl md:text-4xl font-extrabold text-center mb-14 text-white">FAQ</h2>
@@ -551,6 +634,7 @@
       lab:     'Ini lab kesayanganku~ Follow IG kami ya! 📸',
       todo:    'Tulis tugasmu di sini biar nggak lupa ✍️',
       faq:     'Ada yang bingung? Klik pertanyaannya!',
+      game:    'Main bareng aku, yuk! 🎮',
       contact: 'Kirim pesan, nanti kami balas! 💌',
     };
     const sectionObserver = new IntersectionObserver((entries) => {
@@ -569,6 +653,371 @@
       say(buddySpeech, 'Wusss~ kembali ke atas! 🚀');
       setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 350);
     });
+
+    // ===================== 6. MINI GAME (ULAR & TETRIS) =====================
+    (() => {
+      const store = {
+        get(k) { try { return +localStorage.getItem(k) || 0; } catch (e) { return 0; } },
+        set(k, v) { try { localStorage.setItem(k, v); } catch (e) {} },
+      };
+      const rand = n => Math.floor(Math.random() * n);
+      function rr(ctx, x, y, w, h, r) {        // kotak sudut bulat
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.arcTo(x + w, y, x + w, y + h, r);
+        ctx.arcTo(x + w, y + h, x, y + h, r);
+        ctx.arcTo(x, y + h, x, y, r);
+        ctx.arcTo(x, y, x + w, y, r);
+        ctx.closePath();
+      }
+      function board(ctx, w, h, cell) {         // latar papan game
+        ctx.fillStyle = '#031a33';
+        ctx.fillRect(0, 0, w, h);
+        ctx.strokeStyle = 'rgba(92,200,245,.07)';
+        ctx.lineWidth = 1;
+        for (let x = cell; x < w; x += cell) { ctx.beginPath(); ctx.moveTo(x + .5, 0); ctx.lineTo(x + .5, h); ctx.stroke(); }
+        for (let y = cell; y < h; y += cell) { ctx.beginPath(); ctx.moveTo(0, y + .5); ctx.lineTo(w, y + .5); ctx.stroke(); }
+      }
+      function overlay(ctx, w, h, title, sub) {
+        ctx.fillStyle = 'rgba(3,26,51,.78)';
+        ctx.fillRect(0, 0, w, h);
+        ctx.textAlign = 'center';
+        ctx.fillStyle = '#5cc8f5';
+        ctx.font = '800 22px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(title, w / 2, h / 2 - 6);
+        ctx.fillStyle = '#eaf6ff';
+        ctx.font = '600 13px "Plus Jakarta Sans", sans-serif';
+        ctx.fillText(sub, w / 2, h / 2 + 20);
+      }
+      function block(ctx, x, y, s, color) {     // satu kotak tetris
+        ctx.fillStyle = color;
+        rr(ctx, x + 1, y + 1, s - 2, s - 2, 4);
+        ctx.fill();
+        ctx.fillStyle = 'rgba(255,255,255,.28)';
+        rr(ctx, x + 3, y + 3, s - 6, 4, 2);
+        ctx.fill();
+      }
+
+      // ---------- ULAR ----------
+      const sc = document.getElementById('snake-canvas'), sx = sc.getContext('2d');
+      const N = 15, C = 20;
+      const snake = {
+        name: 'Ular', bestKey: 'seachan-best-snake',
+        reset() {
+          this.body = [{ x: 7, y: 7 }, { x: 6, y: 7 }, { x: 5, y: 7 }];
+          this.dir = { x: 1, y: 0 };
+          this.queue = [];
+          this.score = 0;
+          this.speed = 150;
+          this.over = false;
+          this.placeFood();
+        },
+        placeFood() {
+          do { this.food = { x: rand(N), y: rand(N) }; }
+          while (this.body.some(p => p.x === this.food.x && p.y === this.food.y));
+        },
+        input(k) {
+          const m = { up: { x: 0, y: -1 }, down: { x: 0, y: 1 }, left: { x: -1, y: 0 }, right: { x: 1, y: 0 } }[k];
+          if (!m) return;
+          const lastDir = this.queue.length ? this.queue[this.queue.length - 1] : this.dir;
+          if ((m.x === -lastDir.x && m.y === -lastDir.y) || (m.x === lastDir.x && m.y === lastDir.y)) return;
+          if (this.queue.length < 2) this.queue.push(m);
+        },
+        interval() { return this.speed; },
+        step() {
+          if (this.queue.length) this.dir = this.queue.shift();
+          const head = { x: this.body[0].x + this.dir.x, y: this.body[0].y + this.dir.y };
+          const eating = head.x === this.food.x && head.y === this.food.y;
+          const bodyToCheck = eating ? this.body : this.body.slice(0, -1);
+          if (head.x < 0 || head.y < 0 || head.x >= N || head.y >= N ||
+              bodyToCheck.some(p => p.x === head.x && p.y === head.y)) { this.over = true; return; }
+          this.body.unshift(head);
+          if (eating) {
+            this.score += 10;
+            this.speed = Math.max(65, this.speed - 4);
+            this.placeFood();
+          } else {
+            this.body.pop();
+          }
+        },
+        draw() {
+          board(sx, sc.width, sc.height, C);
+          // makanan: gelembung yang berdenyut
+          const pulse = 1 + Math.sin(performance.now() / 180) * .12;
+          const fx = this.food.x * C + C / 2, fy = this.food.y * C + C / 2;
+          const g = sx.createRadialGradient(fx - 3, fy - 3, 1, fx, fy, 9 * pulse);
+          g.addColorStop(0, '#ffffff'); g.addColorStop(.5, '#f9a8d4'); g.addColorStop(1, '#ec4899');
+          sx.fillStyle = g;
+          sx.beginPath(); sx.arc(fx, fy, 7 * pulse, 0, Math.PI * 2); sx.fill();
+          // badan ular: dari biru muda ke biru tua
+          const len = this.body.length;
+          this.body.forEach((p, i) => {
+            const t = i / Math.max(1, len - 1);
+            const r = Math.round(92 + (18 - 92) * t), gg = Math.round(200 + (119 - 200) * t), b = Math.round(245 + (184 - 245) * t);
+            sx.fillStyle = `rgb(${r},${gg},${b})`;
+            rr(sx, p.x * C + 1, p.y * C + 1, C - 2, C - 2, i === 0 ? 7 : 5);
+            sx.fill();
+          });
+          // mata di kepala
+          const h = this.body[0], cx = h.x * C + C / 2, cy = h.y * C + C / 2;
+          const ox = this.dir.y !== 0 ? 4 : 0, oy = this.dir.x !== 0 ? 4 : 0;
+          [[1], [-1]].forEach(([s]) => {
+            const ex = cx + this.dir.x * 3 + ox * s, ey = cy + this.dir.y * 3 + oy * s;
+            sx.fillStyle = '#fff'; sx.beginPath(); sx.arc(ex, ey, 3, 0, Math.PI * 2); sx.fill();
+            sx.fillStyle = '#031a33'; sx.beginPath(); sx.arc(ex + this.dir.x, ey + this.dir.y, 1.5, 0, Math.PI * 2); sx.fill();
+          });
+        },
+        idle(title, sub) { this.draw(); overlay(sx, sc.width, sc.height, title, sub); },
+        help: 'Pakai tombol panah / WASD atau tombol arah di bawah. Makan gelembung pink, jangan menabrak dinding atau badan sendiri!',
+        actionLabel: '●',
+      };
+
+      // ---------- TETRIS ----------
+      const tc = document.getElementById('tetris-canvas'), tx = tc.getContext('2d');
+      const nc = document.getElementById('tetris-next'), nx = nc.getContext('2d');
+      const COLS = 10, ROWS = 20, T = 20;
+      const SHAPES = {
+        I: [[0, 0, 0, 0], [1, 1, 1, 1], [0, 0, 0, 0], [0, 0, 0, 0]],
+        O: [[1, 1], [1, 1]],
+        T: [[0, 1, 0], [1, 1, 1], [0, 0, 0]],
+        S: [[0, 1, 1], [1, 1, 0], [0, 0, 0]],
+        Z: [[1, 1, 0], [0, 1, 1], [0, 0, 0]],
+        J: [[1, 0, 0], [1, 1, 1], [0, 0, 0]],
+        L: [[0, 0, 1], [1, 1, 1], [0, 0, 0]],
+      };
+      // warna keluarga biru laut, dibuat cukup beda supaya mudah dibedakan
+      const COLORS = { I: '#5cc8f5', O: '#a5f3fc', T: '#818cf8', S: '#2dd4bf', Z: '#38bdf8', J: '#1a9ad8', L: '#93c5fd' };
+      const keys = Object.keys(SHAPES);
+      const tetris = {
+        name: 'Tetris', bestKey: 'seachan-best-tetris',
+        reset() {
+          this.grid = Array.from({ length: ROWS }, () => Array(COLS).fill(null));
+          this.score = 0; this.lines = 0; this.level = 1; this.over = false;
+          this.nextKey = keys[rand(keys.length)];
+          this.spawn();
+        },
+        spawn() {
+          const k = this.nextKey;
+          this.nextKey = keys[rand(keys.length)];
+          const m = SHAPES[k].map(r => r.slice());
+          this.piece = { k, m, x: Math.floor((COLS - m[0].length) / 2), y: k === 'I' ? -1 : 0 };
+          if (this.collide(m, this.piece.x, this.piece.y)) this.over = true;
+        },
+        collide(m, ox, oy) {
+          for (let y = 0; y < m.length; y++) for (let x = 0; x < m[y].length; x++) {
+            if (!m[y][x]) continue;
+            const gx = ox + x, gy = oy + y;
+            if (gx < 0 || gx >= COLS || gy >= ROWS) return true;
+            if (gy >= 0 && this.grid[gy][gx]) return true;
+          }
+          return false;
+        },
+        rotate() {
+          const m = this.piece.m;
+          const r = m[0].map((_, i) => m.map(row => row[i]).reverse());
+          for (const off of [0, -1, 1, -2, 2]) {
+            if (!this.collide(r, this.piece.x + off, this.piece.y)) { this.piece.m = r; this.piece.x += off; return; }
+          }
+        },
+        move(dx) { if (!this.collide(this.piece.m, this.piece.x + dx, this.piece.y)) this.piece.x += dx; },
+        drop() {
+          if (!this.collide(this.piece.m, this.piece.x, this.piece.y + 1)) { this.piece.y++; return true; }
+          this.lock();
+          return false;
+        },
+        hardDrop() {
+          let n = 0;
+          while (!this.collide(this.piece.m, this.piece.x, this.piece.y + 1)) { this.piece.y++; n++; }
+          this.score += n * 2;
+          this.lock();
+        },
+        lock() {
+          const { m, x, y, k } = this.piece;
+          for (let r = 0; r < m.length; r++) for (let c = 0; c < m[r].length; c++) {
+            if (!m[r][c]) continue;
+            if (y + r < 0) { this.over = true; return; }
+            this.grid[y + r][x + c] = k;
+          }
+          let cleared = 0;
+          for (let r = ROWS - 1; r >= 0; r--) {
+            if (this.grid[r].every(Boolean)) {
+              this.grid.splice(r, 1);
+              this.grid.unshift(Array(COLS).fill(null));
+              cleared++; r++;
+            }
+          }
+          if (cleared) {
+            this.lines += cleared;
+            this.score += [0, 100, 300, 500, 800][cleared] * this.level;
+            this.level = 1 + Math.floor(this.lines / 10);
+          }
+          this.spawn();
+        },
+        input(k) {
+          if (k === 'left') this.move(-1);
+          else if (k === 'right') this.move(1);
+          else if (k === 'down') { if (this.drop()) this.score += 1; }
+          else if (k === 'up') this.rotate();
+          else if (k === 'action') this.hardDrop();
+        },
+        interval() { return Math.max(90, 650 - (this.level - 1) * 60); },
+        step() { this.drop(); },
+        draw() {
+          board(tx, tc.width, tc.height, T);
+          this.grid.forEach((row, y) => row.forEach((k, x) => { if (k) block(tx, x * T, y * T, T, COLORS[k]); }));
+          if (this.piece && !this.over) {
+            // bayangan tempat jatuh
+            let gy = this.piece.y;
+            while (!this.collide(this.piece.m, this.piece.x, gy + 1)) gy++;
+            this.piece.m.forEach((row, r) => row.forEach((v, c) => {
+              if (!v || gy + r < 0) return;
+              tx.strokeStyle = 'rgba(92,200,245,.45)';
+              tx.lineWidth = 1.5;
+              rr(tx, (this.piece.x + c) * T + 2, (gy + r) * T + 2, T - 4, T - 4, 4);
+              tx.stroke();
+            }));
+            this.piece.m.forEach((row, r) => row.forEach((v, c) => {
+              if (v && this.piece.y + r >= 0) block(tx, (this.piece.x + c) * T, (this.piece.y + r) * T, T, COLORS[this.piece.k]);
+            }));
+          }
+          // pratinjau balok berikutnya
+          nx.clearRect(0, 0, nc.width, nc.height);
+          if (this.nextKey) {
+            const m = SHAPES[this.nextKey], s = 14;
+            const cells = [];
+            m.forEach((row, r) => row.forEach((v, c) => { if (v) cells.push([c, r]); }));
+            const minX = Math.min(...cells.map(p => p[0])), maxX = Math.max(...cells.map(p => p[0]));
+            const minY = Math.min(...cells.map(p => p[1])), maxY = Math.max(...cells.map(p => p[1]));
+            const offX = (nc.width - (maxX - minX + 1) * s) / 2, offY = (nc.height - (maxY - minY + 1) * s) / 2;
+            cells.forEach(([c, r]) => block(nx, offX + (c - minX) * s, offY + (r - minY) * s, s, COLORS[this.nextKey]));
+          }
+        },
+        idle(title, sub) { this.draw(); overlay(tx, tc.width, tc.height, title, sub); },
+        help: '◀ ▶ geser, ▲ putar, ▼ turun pelan, ● (atau Spasi) jatuhkan langsung. Penuhi satu baris untuk menghapusnya!',
+        actionLabel: '⤓',
+      };
+
+      // ---------- PENGATUR GAME ----------
+      const games = { snake, tetris };
+      const canvases = { snake: sc, tetris: tc };
+      const scoreEl = document.getElementById('hud-score');
+      const bestEl = document.getElementById('hud-best');
+      const levelEl = document.getElementById('hud-level');
+      const startBtn = document.getElementById('game-start');
+      const helpEl = document.getElementById('game-help');
+      const padAction = document.getElementById('pad-action');
+      let current = 'snake', state = 'idle', last = 0, acc = 0, rafId = null;
+
+      function hud() {
+        const g = games[current];
+        scoreEl.textContent = g.score || 0;
+        bestEl.textContent = store.get(g.bestKey);
+        levelEl.textContent = tetris.level || 1;
+      }
+      function loop(t) {
+        if (state !== 'running') return;
+        const g = games[current];
+        acc = Math.min(acc + (t - last), 1000);
+        last = t;
+        while (acc >= g.interval()) {
+          acc -= g.interval();
+          g.step();
+          if (g.over) { gameOver(); return; }
+        }
+        g.draw();
+        hud();
+        rafId = requestAnimationFrame(loop);
+      }
+      function start() {
+        const g = games[current];
+        g.reset();
+        state = 'running';
+        acc = 0; last = performance.now();
+        startBtn.textContent = '❚❚ Jeda';
+        say(buddySpeech, current === 'snake' ? 'Ayo, kejar gelembungnya! 🫧' : 'Susun yang rapi ya~ 🧱');
+        rafId = requestAnimationFrame(loop);
+      }
+      function pause() {
+        state = 'paused';
+        cancelAnimationFrame(rafId);
+        games[current].idle('Jeda', 'Tekan Lanjut untuk main lagi');
+        startBtn.textContent = '▶ Lanjut';
+      }
+      function resume() {
+        state = 'running';
+        last = performance.now();
+        startBtn.textContent = '❚❚ Jeda';
+        rafId = requestAnimationFrame(loop);
+      }
+      function gameOver() {
+        state = 'over';
+        cancelAnimationFrame(rafId);
+        const g = games[current];
+        const best = store.get(g.bestKey);
+        const newBest = g.score > best;
+        if (newBest) store.set(g.bestKey, g.score);
+        hud();
+        g.idle(newBest ? 'Rekor Baru! 🎉' : 'Game Over', 'Skor kamu: ' + g.score);
+        startBtn.textContent = '↻ Main Lagi';
+        say(buddySpeech, newBest ? `Wah, rekor baru ${g.score}! Hebat! 🎉` : `Skormu ${g.score}. Coba lagi, pasti bisa! 💪`);
+        hop(buddyChan);
+      }
+      function stop() {
+        cancelAnimationFrame(rafId);
+        state = 'idle';
+        startBtn.textContent = '▶ Mulai';
+      }
+      function switchGame(name) {
+        stop();
+        current = name;
+        document.querySelectorAll('.game-tab').forEach(b => b.classList.toggle('active', b.dataset.game === name));
+        Object.entries(canvases).forEach(([k, c]) => c.classList.toggle('hidden', k !== name));
+        document.getElementById('hud-level-box').classList.toggle('hidden', name !== 'tetris');
+        document.getElementById('hud-next-box').classList.toggle('hidden', name !== 'tetris');
+        helpEl.textContent = games[name].help;
+        padAction.textContent = games[name].actionLabel;
+        const g = games[name];
+        g.reset();
+        g.idle(g.name + ' Sea-chan', 'Tekan Mulai untuk bermain');
+        hud();
+      }
+      function handle(k) {
+        if (state !== 'running') return;
+        const g = games[current];
+        g.input(k);
+        if (g.over) { gameOver(); return; }
+        g.draw();
+        hud();
+      }
+
+      startBtn.addEventListener('click', () => {
+        startBtn.blur();   // supaya Spasi tidak ikut menekan tombol ini
+        if (state === 'running') pause();
+        else if (state === 'paused') resume();
+        else start();
+      });
+      document.querySelectorAll('.game-tab').forEach(b => b.addEventListener('click', () => { b.blur(); switchGame(b.dataset.game); }));
+      document.querySelectorAll('.pad-btn').forEach(b => b.addEventListener('pointerdown', e => {
+        e.preventDefault();
+        handle(b.dataset.key);
+      }));
+      const keyMap = {
+        ArrowUp: 'up', ArrowDown: 'down', ArrowLeft: 'left', ArrowRight: 'right',
+        w: 'up', s: 'down', a: 'left', d: 'right', W: 'up', S: 'down', A: 'left', D: 'right', ' ': 'action',
+      };
+      document.addEventListener('keydown', e => {
+        if (state !== 'running') return;
+        const k = keyMap[e.key];
+        if (!k) return;
+        e.preventDefault();            // supaya halaman tidak ikut ter-scroll
+        handle(k);
+      });
+      // jeda otomatis kalau pindah tab browser
+      document.addEventListener('visibilitychange', () => { if (document.hidden && state === 'running') pause(); });
+
+      tetris.reset(); tetris.idle('Tetris Sea-chan', 'Tekan Mulai untuk bermain');
+      switchGame('snake');
+    })();
   </script>
   <script src="assets/js/main.js"></script>
 </body>
